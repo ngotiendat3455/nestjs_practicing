@@ -2,7 +2,9 @@ import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Que
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './provider/users.service';
 import { GetUserParamDto } from './dtos/getUserParamDto.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
 
