@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TagsModule } from './tags/tags.module';
+import { MetaOptionsModule } from './meta-options/meta-options.module';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       inject: [],
       useFactory: () => ({
         type: 'postgres',
-        entities: [],
+        // entities: [],
         synchronize: true,
+        autoLoadEntities: true,
         port: 5432,
         username: 'user',
         password: '123456',
@@ -25,6 +28,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         database: 'nestjs-blog',
       }),
     }),
+    TagsModule,
+    MetaOptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
