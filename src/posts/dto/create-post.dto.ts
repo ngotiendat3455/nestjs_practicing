@@ -3,6 +3,7 @@ import { postStatus } from "../enum/post-status.enum";
 import { PostType } from "../enum/post-type.enum";
 import { CreatePostMetaOptionsDto } from "./create-post-meta-options.dto";
 import { Type } from "class-transformer";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreatePostDto {
     @IsString()
@@ -38,20 +39,24 @@ export class CreatePostDto {
     @IsUrl()
     featuredImageUrl: string;
 
+    @ApiProperty({
+        description: 'Must be a valid timestamp in ISO8601',
+        example: '2024-03-16T07:46:32+0000',
+      })
     @IsISO8601()
     @IsOptional()
-    publishOn: Date;
+    publishOn?: Date;
 
     @IsArray()
     @IsOptional()
     @IsString({ each: true })
     @MinLength(3, { each: true })
-    tags: string[];
+    tags?: string[];
 
 
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreatePostMetaOptionsDto)
-    metaOptions: CreatePostMetaOptionsDto[];
+    metaOptions?: CreatePostMetaOptionsDto[];
   }
