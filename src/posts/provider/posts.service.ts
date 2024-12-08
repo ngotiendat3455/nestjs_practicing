@@ -32,6 +32,18 @@ export class PostsService {
           ];
     }
 
+    public async deletePost(id: number) {
+      // const found = await this.postReponsitory.findOneBy({
+      //   id: id
+      // });
+      // await this.postReponsitory.delete(id);
+      // await this.metaOptionReponsitory.delete(found.metaOptions.id);
+      await this.postReponsitory.delete(id);
+      return {
+        deleted: true,
+        id: id
+      }
+    }
     public async create(createPostDto: CreatePostDto) {
       // Create the metaOptions first if they exist
       // let metaOptions = createPostDto.metaOptions ? this.metaOptionReponsitory.create(createPostDto.metaOptions) : null;

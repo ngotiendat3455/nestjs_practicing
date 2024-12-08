@@ -56,5 +56,5 @@ export class CreatePostDto {
 
     @IsOptional()
     @Type(() => CreatePostMetaOptionsDto)
-    metaOptions?: CreatePostMetaOptionsDto[];
+    metaOptions?: CreatePostMetaOptionsDto;
   }

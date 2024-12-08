@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Post } from "src/posts/post.entity";
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class MetaOption {
@@ -16,4 +17,9 @@ export class MetaOption {
 
     @UpdateDateColumn()
     updatedDate: Date;
+
+    @OneToOne(() => Post, {
+        onDelete: 'CASCADE'
+    })
+    post: Post
 }
