@@ -17,20 +17,15 @@ export class PostsService {
         private readonly metaOptionReponsitory: Repository<MetaOption>,
     ){}
 
-    public findAll(userId: string) {
+    public async findAll(userId: string) {
         const user = this.usersService.findOneById(Number(userId));
-        return [
-            {
-              user: user,
-              title: 'Test Tile',
-              content: 'Test Content',
-            },
-            {
-              user: user,
-              title: 'Test Tile 2',
-              content: 'Test Content 2',
-            },
-          ];
+        let posts = await this.postReponsitory.find({
+          relations: {
+            metaOptions: true,
+            author: true,
+          }
+        })
+        return posts;
     }
 
     public async deletePost(id: number) {
