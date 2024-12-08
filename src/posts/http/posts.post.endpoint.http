@@ -2,9 +2,9 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title": "What's new with NestJS 5",
+  "title": "What's new with NestJS 6",
   "postType": "post",
-  "slug": "new-with-nest-js-5",
+  "slug": "new-with-nest-js-6",
   "status": "draft",
   "content": "post-content",
   "schema": "{\r\n    \"@context\": \"https:\/\/schema.org\",\r\n    \"@type\": \"Person\"\r\n  }",
@@ -17,5 +17,6 @@ Content-Type: application/json
   "metaOptions" : {
     "metaValue": "{ \"sidebarEnabled\": true, \"footerActive\": true }"
     },
-  "authorId": 1
+  "authorId": 1,
+  "tags": [1]
 }

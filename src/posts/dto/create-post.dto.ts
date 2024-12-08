@@ -49,9 +49,7 @@ export class CreatePostDto {
 
     @IsArray()
     @IsOptional()
-    @IsString({ each: true })
-    @MinLength(3, { each: true })
-    tags?: string[];
+    tags?: number[];
 
 
     @IsOptional()
