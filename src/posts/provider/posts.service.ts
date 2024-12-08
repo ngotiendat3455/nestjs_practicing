@@ -13,11 +13,11 @@ export class PostsService {
         @InjectRepository(Post)
         private readonly postReponsitory: Repository<Post>,
         @InjectRepository(MetaOption)
-        private readonly metaOptionReponsitory: Repository<MetaOption>
+        private readonly metaOptionReponsitory: Repository<MetaOption>,
     ){}
 
     public findAll(userId: string) {
-        const user = this.usersService.findOneById(userId);
+        const user = this.usersService.findOneById(Number(userId));
         return [
             {
               user: user,
@@ -51,8 +51,13 @@ export class PostsService {
       // if (metaOptions) {
       //   await this.metaOptionReponsitory.save(metaOptions);
       // }
+      let author = await this.usersService.findOneById(createPostDto.authorId);
+
       // create the post
-      let post = this.postReponsitory.create(createPostDto);
+      let post = this.postReponsitory.create({
+        ...createPostDto,
+        author
+      });
       // if (metaOptions) {
       //   post.metaOptions = metaOptions;
       // }

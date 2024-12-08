@@ -1,8 +1,9 @@
-import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './provider/users.service';
 import { GetUserParamDto } from './dtos/getUserParamDto.dto';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PatchUserDto } from './dtos/patch-user.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -45,6 +46,11 @@ export class UsersController {
     @Post()
     public createUsers(@Body() createUserDto: CreateUserDto){
         console.log(createUserDto);
-        return "You sent a post request to users endpoint";
+        return this.usersService.createUser(createUserDto);
+    }
+
+    @Patch()
+    public patchUser(@Body() patchUserDto: PatchUserDto) {
+      return patchUserDto;
     }
 }

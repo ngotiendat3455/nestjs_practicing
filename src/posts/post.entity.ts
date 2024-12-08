@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PostType } from "./enum/post-type.enum";
 import { postStatus } from "./enum/post-status.enum";
 import { CreatePostMetaOptionsDto } from "./dto/create-post-meta-options.dto";
 import { MetaOption } from "src/meta-options/meta-option.entity";
+import { User } from "src/users/user.entity";
 
 @Entity()
 export class Post {
@@ -70,6 +71,9 @@ export class Post {
         name: 'metaOptionId'
     })
     metaOptions?: MetaOption;
+
+    @ManyToOne(() => User, (user) => user.posts)
+    author: User;
     // Work on these in lecture on relationships
     tags?: string[];
 }
