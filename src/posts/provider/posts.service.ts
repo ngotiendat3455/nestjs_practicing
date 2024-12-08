@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from '../post.entity';
 import { Repository } from 'typeorm';
 import { MetaOption } from 'src/meta-options/meta-option.entity';
+import { PatchPostDto } from '../dto/patch-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -62,5 +63,9 @@ export class PostsService {
       //   post.metaOptions = metaOptions;
       // }
       return await this.postReponsitory.save(post);
+    }
+
+    public async update(patchPostDto: PatchPostDto) {
+      console.log(patchPostDto);
     }
 }
