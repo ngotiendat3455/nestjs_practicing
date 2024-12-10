@@ -25,4 +25,20 @@ export class TagService {
         });
         return results;
     }
+
+    public async delete(id: number) {
+        await this.tagReponsitory.delete(id);
+        return {
+            delete: true,
+            id
+        }
+    }
+
+    public async softRemove(id: number) {
+        await this.tagReponsitory.softDelete(id);
+        return {
+          softDeleted: true,
+          id,
+        };
+      }
 }

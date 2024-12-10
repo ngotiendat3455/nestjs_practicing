@@ -1,1 +1,1 @@
-DELETE http://localhost:3000/posts?id=5
+DELETE http://localhost:3000/posts?id=8
