@@ -7,25 +7,32 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagsModule } from './tags/tags.module';
 import { MetaOptionsModule } from './meta-options/meta-options.module';
-
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { appConfig } from './config/app.config';
+const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
     UsersModule, 
     PostsModule, 
     AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: !ENV ? '.env' : `.env.${ENV}`,
+      load: [appConfig],
+    }),
     TypeOrmModule.forRootAsync({
-      imports: [],
-      inject: [],
-      useFactory: () => ({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         // entities: [],
-        synchronize: true,
-        autoLoadEntities: true,
-        port: 5432,
-        username: 'user',
-        password: '123456',
-        host: '127.0.0.1',
-        database: 'nestjs-blog',
+        synchronize: configService.get('database.synchronize'),
+        autoLoadEntities: configService.get('database.autoLoadEntities'),
+        port: +configService.get('database.DATABASE_PORT'),
+        username: configService.get('database.user'),
+        password: configService.get('database.password'),
+        host: configService.get('database.host'),
+        database: configService.get('database.name'),
       }),
     }),
     TagsModule,
